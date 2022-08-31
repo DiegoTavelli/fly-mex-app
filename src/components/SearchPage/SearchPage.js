@@ -1,21 +1,25 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground } from 'react-native'
+import { Text, View, StyleSheet, ImageBackground, SafeAreaView, ScrollView, Image } from 'react-native'
 import SearchForm from './SearchForm'
-
+import background from '../../images/background2.jpg'
+import logo from '../../images/logo2.png'
 const image = {
   uri:
-    "https://i0.wp.com/blog.vivaaerobus.com/wp-content/uploads/2019/09/Playas-mas-bonitas-de-Mexico-Cancun.jpg?resize=1280%2C640&ssl=1"
+    "https://i.pinimg.com/originals/70/ae/de/70aededb671c0862bc0bd8341eb07d33.png"
 };
 
 const SearchPage = () => {
 
   return (
-    <View>
-      <ImageBackground source={image} style={{ minHeight: 700 }} >
-        <Text style={styles.title} >Fly MEx</Text>
-        <SearchForm />
-      </ImageBackground>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <ImageBackground source={background} style={{ minHeight: 700 }} >
+          <Image source={logo} style={[styles.title, styles.shadowProp]} ></Image>
+          {/* <Text style={[styles.title, styles.shadowProp]} >Fly MEx</Text> */}
+          <SearchForm />
+        </ImageBackground>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -28,7 +32,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#2683e177',
   },
   title: {
-    fontSize: 30,
+    fontWeight: '1000',
+    shadowRadius: 10,
+    fontStyle: 'bold',
+    color: '#7f12e5c7',
+    fontSize: 40,
     marginTop: 40,
     alignSelf: 'center',
     marginBottom: 20
@@ -41,41 +49,13 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 50,
   },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
 })
 
 export default SearchPage
 
-
-{/* <View>
-      <Text style={styles.title} >Fly MEx App</Text>
-      <View style={styles.container} >
-        <SafeAreaView>
-          <Text >From</Text>
-          <TextInput
-            style={styles.input}
-            value={fromText}
-            onChangeText={onChangeFromText}
-          />
-          <Text >To</Text>
-          <TextInput
-            style={styles.input}
-            value={toText}
-            onChangeText={onChangeToText}
-          />
-          <View >
-            <Text >Depart</Text>
-            <TextInput
-              style={styles.input}
-              value={toText}
-              onChangeText={onChangeToText}
-            />
-            <Text >Return</Text>
-            <TextInput
-              style={styles.input}
-              value={toText}
-              onChangeText={onChangeToText}
-            />
-          </View>
-        </SafeAreaView>
-      </View>
-    </View> */}

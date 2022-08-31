@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Formik, useField } from 'formik'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet, Pressable } from 'react-native'
 import { FormikInputValue } from './FormikInputValue'
-import DatePicker from '@react-native-community/datetimepicker';
-
+import CustomDatePicker from './CustomDatePicker'
+// import CustomButton from './CustomButton'
+import CustomButtonFind from './CustomButtonFind'
 import { airports } from '../../data/db'
 
 const initialValues = {
@@ -14,84 +15,78 @@ const initialValues = {
   passengers: ''
 }
 
-export default function SearchForm() {
-  const [date, setDate] = useState('09-10-2022')
+export default function SearchForm({ modalVisible }) {
 
 
   return (
     <Formik initialValues={initialValues}
-      onSubmit={values => console.log(values)}
-    >
+      onSubmit={values => console.log(values)}>
       {({ handleSubmit }) => {
         return <View style={styles.container} >
-          <Text>
-            From
-          </Text>
           <FormikInputValue
             name='from'
-            placeholder='from'
+            placeholder='From'
+            onpPress={modalVisible}
+            label='From'
           />
-          <Text>
-            To
-          </Text>
+          {/* <ModalInput /> */}
           <FormikInputValue
             name='to'
-            placeholder='to'
+            placeholder='To'
+            label='To'
           />
-          <View style={{ flexDirection: 'row' }} >
-            <Text style={{ marginRight: 70 }} >depart</Text>
-            <Text>return</Text>
-          </View>
-          <View style={styles.containerMiddleInput}>
-            <DatePicker
-              style={styles.middleInput}
-              date={date}
-              value={new Date()}
-              mode='date'
-              placeholder='select date'
-              format='DD-MM-YYYY'
-              minDate='01-01-2022'
-              maxDate='01-01-2025'
-              confirmBtnText='Confirm'
-              cancelBtnText='Cancel'
-              onDateChange={(date) => {
-                setDate(date)
-              }}
-            />
-            <FormikInputValue
-              name='return'
-              style={styles.middleInput}
-              placeholder='return'
-            />
-          </View>
-          <Text>
-            passengers
-          </Text>
           <FormikInputValue
             name='passengers'
-            placeholder='passengers'
+            placeholder='Passengers'
+            label='👨 Passengers'
           />
-          <Button style={styles.submitButton} onpPress={handleSubmit} title='Search' ></Button>
+
+          <View style={styles.containerMiddleInput}>
+            <CustomDatePicker />
+          </View>
+          <CustomButtonFind
+            style={styles.submitButton}
+            onpPress={handleSubmit}
+            title='Find it!'>
+            <Text>a</Text>
+          </CustomButtonFind>
         </View>
       }}
-    </Formik >
+    </Formik>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   middleInput: {
-    maxWidth: 100
+    maxWidth: 100,
+
   },
   containerMiddleInput: {
     display: 'flex',
     flexDirection: 'row',
+    marginTop: 70
   },
   submitButton: {
-    borderRadius: 40,
-    color: 'red'
+    backgroundColor: 'red',
+    borderRadius: 4,
+    paddingHorizontal: 100
+  },
+  text: {
+    color: '#ed982a',
+    fontWeight: '500',
+    fontStyle: 'bold',
+    fontSize: 21,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    marginTop: 70,
+    marginBottom: 5,
+
   }
 })
+
